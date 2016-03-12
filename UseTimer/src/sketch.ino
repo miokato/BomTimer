@@ -1,3 +1,8 @@
+/*
+  Bom Timer
+  タイマー利用バージョン
+*/  
+
 #include <MsTimer2.h>
 
 #define MODE0 0
@@ -13,7 +18,7 @@ volatile static int state;
 unsigned long t;
 static boolean output;
 
-// タイマーの中で行なっている変更は、loopの中からは参照するだけ。
+// 注意) 割り込みを使用する場合、割り込み関数とループ関数で同じ変数を書き換えない 
 void count_num(){
   count += 1;
   Serial.println(count);
