@@ -1,6 +1,6 @@
 #define LED_PIN 13
 #define BUTTON_PIN 2
-volatile static boolean state = false;
+static boolean state = false;
 boolean buttonState;
 boolean lastButtonState;
 long lastDebounceTime = 0;
@@ -36,6 +36,8 @@ void loop()
       }
     }
   }
+
+
   digitalWrite(LED_PIN, state);
   lastButtonState = reading;
 }
