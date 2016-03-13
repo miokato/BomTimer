@@ -2,6 +2,8 @@
 
 void setup();
 void loop();
+void initPassLongTime();
+void initBomTimer();
 void checkButtonState();
 void incrementPerSecond();
 void changeMode();
@@ -52,18 +54,10 @@ static boolean output;
 
 void setup()
 {
-  ledState = MODE0;
+  initBomTimer();
+
   buttonState = true;
   lastButtonState = true;
-  state = false;
-
-  countSecond = 0;
-
-  timeForCount = 0;
-  timeForLedState = 0;
-  lastDebounceTime = 0;
-
-  output = false;
 
   Serial.begin(9600);
   pinMode(LED_PIN, OUTPUT);
@@ -72,15 +66,30 @@ void setup()
 
 void loop()
 {
+  Serial.println(timeForCount);
   checkButtonState();
   if(state){
     incrementPerSecond();
     changeMode();
     runMode(ledState);
   } else {
-    ledState = MODE0;
-    countSecond = 0;
+    initBomTimer();
   }
+}
+
+void initPassLongTime(){
+}
+
+
+void initBomTimer(){
+  ledState = MODE0;
+  state = false;
+  output = false;
+
+  countSecond = 0;
+  timeForCount = 0;
+  timeForLedState = 0;
+  lastDebounceTime = 0;
 }
 
 void checkButtonState(){
