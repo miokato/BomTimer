@@ -2,11 +2,12 @@
 
 void setup();
 void loop();
-void initPassLongTime();
 void initBomTimer();
 void checkButtonState();
 void incrementPerSecond();
 void changeMode();
+void toggleLeds();
+void turnOffLeds();
 void runMode(int _ledState);
 boolean isPassedMinute();
 void blinkSlowSpeed();
@@ -19,7 +20,11 @@ void blinkHiSpeed();
 */
 
 // ピン
-#define LED_PIN 13
+#define LED_PIN1 3
+#define LED_PIN2 4
+#define LED_PIN3 5
+#define LED_PIN4 6
+#define LED_PIN5 7
 #define BTN_PIN 2
 
 // LEDの光り方の状態
@@ -27,6 +32,16 @@ void blinkHiSpeed();
 #define MODE1 1 //ゆっくり点滅
 #define MODE2 2 //普通に点滅
 #define MODE3 3 //高速に点滅
+
+// MODEを切り替えるタイミング(秒)
+#define FIRSTMODE 10
+#define SECONDMODE 20
+#define THIRDMODE 25 
+
+// モード毎にLEDの点滅のタイミング
+#define SLOWSPEED 1000
+#define MIDDLESPEED 400
+#define HISPEED 80
 
 // BomTimerのスイッチ
 static boolean state;
@@ -60,7 +75,11 @@ void setup()
   lastButtonState = true;
 
   Serial.begin(9600);
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(LED_PIN1, OUTPUT);
+  pinMode(LED_PIN2, OUTPUT);
+  pinMode(LED_PIN3, OUTPUT);
+  pinMode(LED_PIN4, OUTPUT);
+  pinMode(LED_PIN5, OUTPUT);
   pinMode(BTN_PIN, INPUT_PULLUP); //INPUT_PULLUPは内部でプルアップされていて、通常HIGH
 }
 
@@ -76,10 +95,6 @@ void loop()
     initBomTimer();
   }
 }
-
-void initPassLongTime(){
-}
-
 
 void initBomTimer(){
   ledState = MODE0;
@@ -119,27 +134,41 @@ void incrementPerSecond(){
   }
 }
 
-
 // countSecondの変化に応じてモードを切り替える
 void changeMode(){
   // return文をloopの中で書くと、そこでloopの最初まで戻る。その後の処理が実行されないので注意
   if(countSecond==1){
     ledState = MODE1;
-  } else if(countSecond==4){
+  } else if(countSecond==FIRSTMODE){
     ledState = MODE2;
-  } else if(countSecond==7){
+  } else if(countSecond==SECONDMODE){
     ledState = MODE3;
-  } else if(countSecond==10){
+  } else if(countSecond==THIRDMODE){
     state = !state;
-    digitalWrite(LED_PIN, LOW);
+    turnOffLeds();
   } 
+}
+void toggleLeds(){
+  digitalWrite(LED_PIN1, output);
+  digitalWrite(LED_PIN2, output);
+  digitalWrite(LED_PIN3, output);
+  digitalWrite(LED_PIN4, output);
+  digitalWrite(LED_PIN5, output);
+}
+
+void turnOffLeds(){
+  digitalWrite(LED_PIN1, LOW);
+  digitalWrite(LED_PIN2, LOW);
+  digitalWrite(LED_PIN3, LOW);
+  digitalWrite(LED_PIN4, LOW);
+  digitalWrite(LED_PIN5, LOW);
 }
 
 // 現在のモードにおける処理を行なう
 void runMode(int _ledState){
   if(_ledState==MODE0){
     Serial.println("mode0");
-    digitalWrite(LED_PIN, LOW);
+    turnOffLeds();
   } else if(_ledState==MODE1){
     Serial.println("mode1");
     blinkSlowSpeed();
@@ -164,27 +193,27 @@ boolean isPassedMinute() {
 
 // ゆっくりLEDが光るモード
 void blinkSlowSpeed(){
-  if((millis()-timeForLedState)>1000){
+  if((millis()-timeForLedState)>SLOWSPEED){
     output = !output;
-    digitalWrite(LED_PIN, output);
+    toggleLeds();
     timeForLedState = millis();
   } 
 }
 
 // 真ん中のスピードでLEDが光るモード
 void blinkMiddleSpeed(){
-  if((millis()-timeForLedState)>600){
+  if((millis()-timeForLedState)>MIDDLESPEED){
     output = !output;
-    digitalWrite(LED_PIN, output);
+    toggleLeds();
     timeForLedState = millis();
   }
 }
 
 // 早いスピードLEDが光るモード
 void blinkHiSpeed(){
-  if((millis()-timeForLedState)>100){
+  if((millis()-timeForLedState)>HISPEED){
     output = !output;
-    digitalWrite(LED_PIN, output);
+    toggleLeds();
     timeForLedState = millis();
   }
 }
