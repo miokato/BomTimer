@@ -32,15 +32,15 @@ void loop(){
   static int count = 0;
   static boolean onoff = false;
   if(checkButtonState()){
+    Serial.println("was checked button state");
     onoff = !onoff;
     count = 0;
   }
   if(onoff){
+    // ボタンを押した時に以下の処理を実行すると、ボタンを押した時しか'count'が増えない。
     if(isPassedSecond()){
       count += 1;
-      Serial.println(count);
     }
-  } else {
   }
   int mode = modeForSecond(count);
   runMode(mode);
@@ -78,7 +78,7 @@ boolean checkButtonState() {
     if(reading != buttonState){
       buttonState = reading;
       if(buttonState==HIGH){
-        Serial.println("check button");
+        Serial.println("button state is HIGH");
         return true;
         // state = !state;
       }
