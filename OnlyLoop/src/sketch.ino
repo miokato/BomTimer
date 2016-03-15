@@ -1,5 +1,5 @@
 /*
-   Bom Timer
+   Bomb Timer
    ループの中ですべて完結。
 */
 
@@ -77,6 +77,7 @@ void loop()
     runMode(ledState);
   } else {
     initBomTimer();
+    turnOffLeds();
   }
 }
 

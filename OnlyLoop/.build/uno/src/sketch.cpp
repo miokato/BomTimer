@@ -15,7 +15,7 @@ void blinkMiddleSpeed();
 void blinkHiSpeed();
 #line 1 "src/sketch.ino"
 /*
-   Bom Timer
+   Bomb Timer
    ループの中ですべて完結。
 */
 
@@ -93,6 +93,7 @@ void loop()
     runMode(ledState);
   } else {
     initBomTimer();
+    turnOffLeds();
   }
 }
 
