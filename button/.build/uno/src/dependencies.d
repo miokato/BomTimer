@@ -1,4 +1,3 @@
-.build/uno/src/test.d .build/uno/src/test.o: src/test.c
 .build/uno/src/sketch.d .build/uno/src/sketch.o: .build/uno/src/sketch.cpp \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Arduino.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/binary.h \
@@ -10,4 +9,4 @@
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/Printable.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino/new.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/standard/pins_arduino.h \
-  lib/Button/Button.h lib/LED/LED.h src/test.c
+  lib/Button/Button.h lib/LED/LED.h
