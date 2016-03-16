@@ -1,6 +1,11 @@
 /*
    Bomb Timer
 */
+#define LED1 3
+#define LED2 4
+#define LED3 5
+#define LED4 6
+#define LED5 7
 
 #define MODE0 0
 #define MODE1 1
@@ -11,12 +16,16 @@
 #define MIDDLESPEED 500
 #define HIGHSPEED 100
 
-#define BTN_PIN 4
+#define BTN_PIN 2
 #define DEBOUNCEDELAY 50
 
 void setup(){
   pinMode(BTN_PIN, INPUT_PULLUP);
-  pinMode(3, OUTPUT);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  pinMode(LED5, OUTPUT);
   Serial.begin(9600);
 }
 
@@ -93,7 +102,11 @@ boolean checkButtonState() {
 }
 
 void turnOffLeds(){
-  digitalWrite(3, LOW);
+  digitalWrite(LED1, LOW);
+  digitalWrite(LED2, LOW);
+  digitalWrite(LED3, LOW);
+  digitalWrite(LED4, LOW);
+  digitalWrite(LED5, LOW);
 }
 
 boolean isPassedSecond() {
@@ -109,7 +122,11 @@ boolean isPassedSecond() {
 }
 
 void toggleLeds(boolean onoff){
-  digitalWrite(3, onoff);
+  digitalWrite(LED1, onoff);
+  digitalWrite(LED2, onoff);
+  digitalWrite(LED3, onoff);
+  digitalWrite(LED4, onoff);
+  digitalWrite(LED5, onoff);
 }
 
 void blink(unsigned long interval){
